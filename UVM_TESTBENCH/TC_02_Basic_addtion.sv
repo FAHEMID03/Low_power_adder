@@ -1,12 +1,25 @@
-Task TC_02_Basic_Addition;
-begin
-  
-  $display("Running TC_02");
-  
-  send_transection(32'd5 , 32'd3);  //5+3=8
-  
-  check_result (32'd8);
-  
-end
+class basic_add_seq extends uvm_sequence #(adder_seq_item);
 
-endtask
+   adder_seq_item req;
+
+   `uvm_object_utils(basic_add_seq)
+
+   function new(string name="basic_add_seq");
+      super.new(name);
+   endfunction
+
+   task body();
+
+      req=adder_seq_item::type_id::create("req");
+
+      start_item(req);
+
+      req.A=32'd5;
+      req.B=32'd3;
+      req.Start_i=1;
+
+      finish_item(req);
+
+   endtask
+
+endclass

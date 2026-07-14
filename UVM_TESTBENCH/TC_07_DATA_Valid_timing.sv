@@ -1,26 +1,22 @@
-task TC_07_data_valid;
-  
-  integer count;
-  
-  begin
-    $display("Running TC_07");
-    send_transection(100,200);
-    count=0;
-    
-    while(!data_valid_0)
-      
-    begin
-      @(posedge clk);
-      count++;
-    end
-    
-    if(county==3)
-      $display("Latency PASS");
-    
-    else
-      $error("Latency fail count=%0d",count);
-    
-  end
-  
-endtask
+class latency_seq extends uvm_sequence #(adder_seq_item);
+
+   adder_seq_item req;
+
+   `uvm_object_utils(latency_seq)
+
+   task body();
+
+      req=adder_seq_item::type_id::create("req");
+
+      start_item(req);
+
+      req.A=100;
+      req.B=200;
+      req.Start_i=1;
+
+      finish_item(req);
+
+   endtask
+
+endclass
       

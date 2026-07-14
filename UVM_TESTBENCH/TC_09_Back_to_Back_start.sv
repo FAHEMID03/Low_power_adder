@@ -1,27 +1,29 @@
-task TC_09_Back_to_Back;
+class back_to_back_seq extends uvm_sequence #(adder_seq_item);
 
-begin
+   adder_seq_item req;
 
-    @(posedge clk);
+   `uvm_object_utils(back_to_back_seq)
 
-    A<=10;
+   task body();
 
-    B<=20;
+      repeat(10)
 
-    Start_i<=1;
+      begin
 
-    @(posedge clk);
+         req=adder_seq_item::type_id::create("req");
 
-    A<=30;
+         start_item(req);
 
-    B<=40;
+         assert(req.randomize());
 
-    Start_i<=1;
+         req.Start_i=1;
 
-    @(posedge clk);
+         finish_item(req);
 
-    Start_i<=0;
+         // No idle cycle
 
-end
+      end
 
-endtask
+   endtask
+
+endclass

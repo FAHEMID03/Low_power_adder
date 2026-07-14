@@ -44,6 +44,21 @@ Testbench Architucture.
 
                  Functional Coverage
 
-
+**Mapping to my Verification Plan**
+______________________________________
+Test Case	                         Driver	                  Input Monitor	                     Output Monitor                      	Scoreboard Check
+__________                        ----------                --------------                     ---------------                    ----------------------------
+TC_01 Reset	                  Drives reset	                No transaction	                  Output reset values	                Check Data_O=0, Data_Valid_O=0
+TC_02 Basic Addition	        A=5, B=3,Start_i=1	          Captures A, B	                    Captures Data_O=8     	            Compares 5+3=8
+TC_03 Zero Addition	          A=0, B=0	                    Captures request	                Captures Data_O=0	                  Compares 0+0=0
+TC_04 Maximum Value	          A=32'hFFFF_FFFF, B=1	        Captures operands	                Captures wrapped result	            Compares 32'h0000_0000
+TC_05 Random Values	          Drives randomized operands	  Captures all requests	            Captures all outputs	              Compares A+B for each transaction
+TC_06 Start Pulse Width	      Generates one-cycle           Verifies request sampled once     Not applicable	                    SVA/check ensures one-cycle pulse
+                              Start_i pulse		
+TC_07 Data Valid Timing	      Sends transaction	            Records request time	            Records Data_Valid_O time	Checks    latency matches specification
+TC_08 Multiple Transactions	  Drives multiple requests	    Captures each request	            Captures each response	            Verifies every sum
+TC_09 Back-to-Back Start	    Drives consecutive            Captures back-to-back requests	  Captures outputs or DUT behavior	  Checks DUT accepts/rejects requests as specified
+                              Start_i pulses	
+TC_10 Idle Cycles	            Keeps Start_i=0	              No transactions	                  Monitors outputs	                  Verifies outputs remain stable and Data_Valid_O stays low
 
                  

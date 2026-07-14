@@ -1,25 +1,19 @@
-task TC_10_Idle;
+class idle_seq extends uvm_sequence #(adder_seq_item);
 
-logic [31:0] old_data;
+   `uvm_object_utils(idle_seq)
 
-begin
+   function new(string name="idle_seq");
+      super.new(name);
+   endfunction
 
-    old_data = Data_O;
+   task body();
 
-    repeat(20)
+      `uvm_info(get_name(),
+      "Keeping interface Idle",
+      UVM_LOW)
 
-    begin
+      #500ns;
 
-        @(posedge clk);
+   endtask
 
-        if(Start_i==0)
-
-            if(Data_O!=old_data)
-
-                $error("Output changed during Idle");
-
-    end
-
-end
-
-endtask
+endclass

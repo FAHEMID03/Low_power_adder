@@ -1,13 +1,21 @@
-task TC_03_Zero_Addition;
+class zero_add_seq extends uvm_sequence #(adder_seq_item);
 
-begin
+   adder_seq_item req;
 
-    $display("Running TC_03");
+   `uvm_object_utils(zero_add_seq)
 
-    send_transaction(0,0);
+   task body();
 
-    check_result(0);
+      req=adder_seq_item::type_id::create("req");
 
-end
+      start_item(req);
 
-endtask
+      req.A=0;
+      req.B=0;
+      req.Start_i=1;
+
+      finish_item(req);
+
+   endtask
+
+endclass

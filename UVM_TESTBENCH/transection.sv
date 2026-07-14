@@ -1,37 +1,20 @@
-task automatic send_transection
-  (
-    input logic[31:0] a,
-    output logic[31:0]b
-  );
-  begin
-    @(posedge clk)
+class adder_seq_item extends uvm_sequence_item;
 
-    A <=a;
-    B <=b;
-    start_i <= 1'b1;
-    @(posedge clk);
-    start_i <=1'b0;
-  end
-endtask
+   rand bit [31:0] A;
+   rand bit [31:0] B;
+   rand bit        Start_i;
 
-//-------------------------------------------------------//
-// common task for checking result                       //
-//-------------------------------------------------------//
+   bit [31:0] exp_sum;
 
-task automatic check_result
-  (
-    input logic[31:0] expected
-  );
-  begin
-    wait (Data_valid_0);
-    if(Data_O == expected)
-        $display("[%0t] PASS Expected=%0d Actual=%0d",
-                 $time, expected, Data_O);
-    else
-        $error("[%0t] FAIL Expected=%0d Actual=%0d",
-                $time, expected, Data_O);
+   `uvm_object_utils(adder_seq_item)
 
-end
+   function new(string name="adder_seq_item");
+      super.new(name);
+   endfunction
 
-endtask
+   function void post_randomize();
+      exp_sum = A + B;
+   endfunction
+
+endclass
     

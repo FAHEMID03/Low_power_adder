@@ -1,13 +1,21 @@
-task TC_04_Overflow;
+class overflow_seq extends uvm_sequence #(adder_seq_item);
 
-begin
+   adder_seq_item req;
 
-    $display("Running TC_04");
+   `uvm_object_utils(overflow_seq)
 
-    send_transaction(32'hFFFFFFFF,32'h1);
+   task body();
 
-    check_result(32'h00000000);
+      req=adder_seq_item::type_id::create("req");
 
-end
+      start_item(req);
 
-endtask
+      req.A=32'hFFFFFFFF;
+      req.B=32'h1;
+      req.Start_i=1;
+
+      finish_item(req);
+
+   endtask
+
+endclass

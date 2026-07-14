@@ -1,16 +1,21 @@
-task TC_06_Start_Pulse;
+class start_pulse_seq extends uvm_sequence #(adder_seq_item);
 
-begin
+   adder_seq_item req;
 
-    $display("Running TC_06");
+   `uvm_object_utils(start_pulse_seq)
 
-    send_transaction(20,30);
+   task body();
 
-    @(posedge clk);
+      req=adder_seq_item::type_id::create("req");
 
-    if(Start_i)
-        $error("Start_i should be LOW");
+      start_item(req);
 
-end
+      req.A=15;
+      req.B=25;
+      req.Start_i=1;
 
-endtask
+      finish_item(req);
+
+   endtask
+
+endclass

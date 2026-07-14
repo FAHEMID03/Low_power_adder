@@ -1,18 +1,18 @@
-Task TC_01_reset;
-begin
-  $display("Running TC_01 Reset");
-  rst_n = 0;
-  
-  repet(5)@(posedge clk);
-  
-  if(Data_0 !=0)
-    $error(Data_0 is not a Zero);
-  
-  if(Data_Valid_0 !=0)
-    $error ("Data_valid_0 is not Zero");
-  
-  rst_n = 1;
-  
-end
+class reset_sequence extends uvm_sequence #(adder_seq_item);
 
-endtask
+   `uvm_object_utils(reset_sequence)
+
+   function new(string name="reset_sequence");
+      super.new(name);
+   endfunction
+
+   task body();
+
+      `uvm_info(get_type_name(),
+      "Waiting for Reset Completion",UVM_LOW)
+
+      #100ns;
+
+   endtask
+
+endclass

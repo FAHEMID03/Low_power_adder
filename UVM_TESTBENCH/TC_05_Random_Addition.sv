@@ -1,19 +1,27 @@
-task TC_05_Random;
+class random_seq extends uvm_sequence #(adder_seq_item);
 
-logic [31:0] a,b;
+   adder_seq_item req;
 
-repeat(100)
+   `uvm_object_utils(random_seq)
 
-begin
+   task body();
 
-    a = $urandom();
+      repeat(100)
 
-    b = $urandom();
+      begin
 
-    send_transaction(a,b);
+         req=adder_seq_item::type_id::create("req");
 
-    check_result(a+b);
+         start_item(req);
 
-end
+         assert(req.randomize());
 
-endtask
+         req.Start_i=1;
+
+         finish_item(req);
+
+      end
+
+   endtask
+
+endclass

@@ -1,19 +1,27 @@
-task TC_08_Multiple_transection;
+class multiple_transaction_seq extends uvm_sequence #(adder_seq_item);
 
-begin
+   adder_seq_item req;
 
-    send_transaction(10,20);
+   `uvm_object_utils(multiple_transaction_seq)
 
-    check_result(30);
+   task body();
 
-    send_transaction(50,60);
+      repeat(20)
 
-    check_result(110);
+      begin
 
-    send_transaction(500,600);
+         req=adder_seq_item::type_id::create("req");
 
-    check_result(1100);
+         start_item(req);
 
-end
+         assert(req.randomize());
 
-endtask
+         req.Start_i=1;
+
+         finish_item(req);
+
+      end
+
+   endtask
+
+endclass

@@ -37,7 +37,13 @@ logic              Data_Valid_0;
 
 low_power_adder #(.WIDTH(WIDTH),.LATENCY(LATENCY))
 dut 
-(.clk(clk),.rst_n(rst_n),.start_i(start_i),.A(A),.B(B),.data_0(data_0),.data_valid_0(data_valid_0));
+(.clk(clk),
+ .rst_n(rst_n),
+ .start_i(start_i),
+ .A(A),
+ .B(B),
+ .data_0(data_0),
+ .data_valid_0(data_valid_0));
   
 //--------------------------------------------------------//
 //        Clock Generation 100 MHZ                        //

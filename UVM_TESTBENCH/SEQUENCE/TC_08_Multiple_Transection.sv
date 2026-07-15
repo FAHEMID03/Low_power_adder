@@ -1,4 +1,4 @@
-class multiple_transaction_seq extends uvm_sequence #(adder_seq_item);
+/*class multiple_transaction_seq extends uvm_sequence #(adder_seq_item);
 
    adder_seq_item req;
 
@@ -19,6 +19,25 @@ class multiple_transaction_seq extends uvm_sequence #(adder_seq_item);
          req.Start_i=1;
 
          finish_item(req);
+
+      end
+
+   endtask
+
+endclass*/
+
+
+class multiple_transaction_seq extends adder_base_seq;
+
+   `uvm_object_utils(multiple_transaction_seq)
+
+   task body();
+
+      repeat(20)
+
+      begin
+
+         basic_add();
 
       end
 
